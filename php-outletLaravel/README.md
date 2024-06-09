@@ -5,6 +5,17 @@ Alina's Luxury Outlet es una aplicación web desarrollada utilizando PHP con el 
 
 - El proyecto Alina's Luxury Outlet se encuentra actualmente en una fase activa de desarrollo y mejora continua. Aunque la versión inicial ha sido implementada con éxito, sigo trabajando en nuevas características, mejoras de rendimiento y corrección de errores para garantizar una experiencia de usuario óptima.
 
+## Características principales:
+
+- Framework Laravel: Utilizando Laravel, una estructura MVC robusta y elegante, la aplicación ofrece una arquitectura sólida y bien organizada para el desarrollo de la aplicación web.
+- Base de datos PostgreSQL: Con PostgreSQL como sistema de gestión de base de datos, se garantiza la integridad de los datos y el rendimiento óptimo para la manipulación de grandes volúmenes de información.
+- Controladores y Vistas: Los controladores gestionan las solicitudes HTTP y coordinan la lógica de negocio, mientras que las vistas proporcionan la interfaz de usuario para interactuar con la aplicación.
+- Autenticación de Usuarios: La aplicación ofrece funciones de autenticación para permitir que los usuarios se registren, inicien sesión y administren sus cuentas de manera segura.
+- Gestión de Inventario: Con características de gestión de inventario, los propietarios de la tienda pueden agregar, editar y eliminar productos, así como realizar un seguimiento del stock disponible.
+- Secciones Personalizadas: Se proporcionan secciones personalizadas para los usuarios, como la visualización de órdenes pasadas, la gestión de direcciones de envío y la configuración de preferencias de cuenta.
+- Pruebas de Funcionalidad: Se realizan pruebas exhaustivas para garantizar el correcto funcionamiento de todas las características de la aplicación, proporcionando una experiencia de usuario sin errores.
+
+
 ## Requisitos
 
 - PHP 
@@ -123,10 +134,14 @@ Una de las principales funcionalidades de nuestra categoría es su capacidad par
 
 - Además, nuestra solución está diseñada para ser altamente flexible y escalable. Con la capacidad de gestionar un gran volumen de categorías y adaptarse a las necesidades cambiantes del negocio, garantizamos que nuestra plataforma de categorización pueda crecer y evolucionar junto con el crecimiento del catálogo de productos.
 
+## Estado de Pruebas
+- Se están realizando pruebas exhaustivas de funcionalidad y rendimiento para detectar y corregir cualquier error o problema potencial.
+- La aplicación está siendo sometida a pruebas de usabilidad para garantizar una experiencia de usuario intuitiva y satisfactoria.
+
 ## Licencia
 
 - Este proyecto está bajo la Licencia Creative Commons.
-- 
+
 
 ## Contribuciones y Retroalimentación
 

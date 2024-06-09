@@ -7,16 +7,24 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-
+/**
+ * Class AddressesController
+ *
+ * La clase AddressesController gestiona operaciones relacionadas con las direcciones de envio en nuestra aplicacion.
+ *
+ * @package App\Http\Controllers
+ * @author Joselyn Carolina Obando Fernandez <cariharvey@hotmail.com>
+ */
 class AddressesController extends Controller{
     /**
-     * AddressesController constructor.
-     * @param Address $address
-     * @param Request $request
-     * @param Auth $auth
-     * @param Cache $cache
-     * @return void
-     * @throws Exception
+     * Obtiene todas las direcciones y las muestra.
+     *
+     * Obtiene todas las direcciones de la cache si estan disponibles, de lo contrario,
+     * obtiene todas las direcciones de la base de datos y las almacena en la cache durante
+     * 300 segundos. Luego devuelve la vista de indice con las direcciones recuperadas.
+     *
+     * @return \Illuminate\View\View Retorna la vista de indice que muestra las direcciones.
+     * @throws \Exception
      */
     public function getAddresses(){
         $addresses = Cache::has('addresses') ? Cache::get('addresses') : Address::all();
@@ -24,17 +32,34 @@ class AddressesController extends Controller{
         return view('addresses.index')->with('addresses', $addresses);
     }
 
+    /**
+     * Obtiene las direcciones asociadas con el usuario autenticado y las muestra.
+     *
+     * @return \Illuminate\View\View Retorna la vista de indice que muestra las direcciones del usuario.
+     */
     public function getMeAddresses(){
         $addresses = Address::where('user_id', Auth::id())->get();
         return view('addresses.index')->with('addresses', $addresses);
     }
 
+    /**
+     * Obtiene una direccion especifica por su ID y la muestra.
+     *
+     * @param int $id El ID de la direccion a recuperar.
+     * @return \Illuminate\View\View Retorna la vista que muestra la direccion.
+     */
     public function getAddressById($id){
         $address = Cache::has('address' . $id) ? Cache::get('address' . $id) : Address::find($id);
         Cache::put('address' . $id, $address, 300);
         return view('address.show')->with('address', $address);
     }
 
+    /**
+     * Obtiene una direccion especifica por su ID para el usuario autenticado y la muestra.
+     *
+     * @param int $id El ID de la direccion a recuperar.
+     * @return \Illuminate\View\View Retorna la vista que muestra la direccion.
+     */
     public function getMeAddressById($id){
         $address = Address::find($id)
             ->where('user_id', Auth::id())
@@ -43,25 +68,25 @@ class AddressesController extends Controller{
     }
 
     /**
-     * Displays the form for creating a new address.
+     * Muestra el formulario para crear una nueva direccion.
      *
-     * @return \Illuminate\View\View Returns a view with the form to create a new address.
+     * @return \Illuminate\View\View Retorna la vista con el formulario para crear una nueva direccion.
      */
     public function createAddress(){
         return view('addresses.create');
     }
 
     /**
-     * Stores a new address for the authenticated user.
+     * Almacena una nueva direccion para el usuario autenticado.
      *
-     * Validates the incoming request data for address creation. If the validation passes,
-     * a new Address instance is created with the request data, associated with the authenticated
-     * user's ID, and saved to the database. The addresses cache is then cleared to reflect the
-     * new addition. On successful creation, redirects to the addresses index route with a success
-     * flash message. If an error occurs during creation, redirects back with an error flash message.
+     * Valida los datos de la solicitud entrante para la creacion de la direccion. Si la validacion
+     * es exitosa, crea una nueva instancia de Address con los datos de la solicitud, la asocia con el ID
+     * de usuario autenticado y la guarda en la base de datos. Limpia la cache de direcciones para reflejar
+     * la nueva adición. En caso de creacion exitosa, redirige a la ruta de indice de direcciones con un mensaje
+     * flash de exito. Si ocurre un error durante la creacion, redirige de nuevo con un mensaje flash de error.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse Redirects to the appropriate view with flash message.
+     * @param \Illuminate\Http\Request $request El objeto de solicitud HTTP.
+     * @return \Illuminate\Http\RedirectResponse Redirige a la vista correspondiente con un mensaje flash.
      */
     public function storeMeAddress(Request $request){
         $request->validate([
@@ -91,14 +116,14 @@ class AddressesController extends Controller{
     }
 
     /**
-     * Displays the edit form for a specific address of the authenticated user.
+     * Muestra el formulario de edicion para una direccion especifica del usuario autenticado.
      *
-     * Finds the address by ID, ensuring it belongs to the currently authenticated user.
-     * If found, returns the edit view with the address data for editing. This ensures that
-     * users can only edit their own addresses.
+     * Encuentra la direccion por su ID, asegurandose de que pertenece al usuario autenticado actualmente.
+     * Si se encuentra, devuelve la vista de edicion con los datos de la direccion para su edicion. Esto asegura que
+     * los usuarios solo puedan editar sus propias direcciones.
      *
-     * @param int|string $id The ID of the address to be edited.
-     * @return \Illuminate\View\View Returns a view for editing the specified address.
+     * @param int|string $id El ID de la direccion que se va a editar.
+     * @return \Illuminate\View\View Retorna la vista para editar la direccion especificada.
      */
     public function editMeAddress($id){
         $address = Address::find($id)->where('user_id', Auth::id())->first();
@@ -106,17 +131,16 @@ class AddressesController extends Controller{
     }
 
     /**
-     * Displays the edit form for a specific address.
+     * Muestra el formulario de edicion para una direccion especifica.
      *
-     * Finds the address by its ID and returns the edit view with the address data
-     * for editing. This method does not restrict editing based on the user, so it should
-     * be used with caution and proper authorization checks should be implemented elsewhere
-     * to ensure data security.
+     * Encuentra la direccion por su ID y devuelve la vista de edicion con los datos de la direccion
+     * para su edicion. Este metodo no restringe la edicion en funcion del usuario, por lo que debe
+     * usarse con precaucion y se deben implementar controles de autorizacion adecuados en otro lugar
+     * para garantizar la seguridad de los datos.
      *
-     * @param int|string $id The ID of the address to be edited.
-     * @return \Illuminate\View\View Returns a view for editing the specified address.
+     * @param int|string $id El ID de la direccion que se va a editar.
+     * @return \Illuminate\View\View Retorna la vista para editar la direccion especificada.
      */
-
     public function editAddress($id){
         $address = Cache::has('address' . $id) ? Cache::get('address' . $id) : Address::find($id);
         Cache::put('address' . $id, $address, 300);
@@ -124,18 +148,18 @@ class AddressesController extends Controller{
     }
 
     /**
-     * Updates the specified address of the authenticated user.
+     * Actualiza la direccion especificada del usuario autenticado.
      *
-     * Validates the incoming request data for address updating. If validation passes,
-     * it attempts to find and update the address belonging to the authenticated user with
-     * the provided ID. The method ensures that only the owner of the address can update it.
-     * Upon successful update, it clears the relevant caches and redirects to the addresses index
-     * route with a success flash message. If any error occurs during the update, it redirects back
-     * with an error flash message.
+     * Valida los datos de la solicitud entrante para la actualizacion de la direccion. Si la validacion
+     * es exitosa, intenta encontrar y actualizar la direccion perteneciente al usuario autenticado con
+     * el ID proporcionado. El método asegura que solo el propietario de la direccion pueda actualizarla.
+     * Tras la actualizacion exitosa, elimina las caches relevantes y redirige a la ruta de indice de direcciones
+     * con un mensaje flash de exito. Si ocurre algún error durante la actualizacion, redirige de nuevo con un
+     * mensaje flash de error.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int|string $id The ID of the address to be updated.
-     * @return \Illuminate\Http\RedirectResponse Redirects to the appropriate view with flash message.
+     * @param \Illuminate\Http\Request $request El objeto de solicitud HTTP.
+     * @param int|string $id El ID de la direccion que se va a actualizar.
+     * @return \Illuminate\Http\RedirectResponse Redirige a la vista correspondiente con mensaje flash.
      */
     public function updateMeAddress(Request $request, $id){
         $request->validate([
@@ -165,15 +189,15 @@ class AddressesController extends Controller{
     }
 
     /**
-     * Deletes a specific address.
+     * Elimina una direccion especifica.
      *
-     * Attempts to find and delete the address with the provided ID. Upon successful deletion,
-     * it clears the relevant caches to ensure the system reflects the absence of the deleted address.
-     * Redirects to the addresses index route with a success flash message indicating the address has been
-     * deleted. If an error occurs during the deletion process, redirects back with an error flash message.
+     * Intenta encontrar y eliminar la direccion con el ID proporcionado. Tras la eliminacion exitosa,
+     * se borran las caches relevantes para garantizar que el sistema refleje la ausencia de la direccion eliminada.
+     * Redirige a la ruta de indice de direcciones con un mensaje flash de exito indicando que la direccion ha sido
+     * eliminada. Si ocurre algun error durante el proceso de eliminacion, redirige de nuevo con un mensaje flash de error.
      *
-     * @param int|string $id The ID of the address to be deleted.
-     * @return \Illuminate\Http\RedirectResponse Redirects to the appropriate view with flash message.
+     * @param int|string $id El ID de la direccion que se va a eliminar.
+     * @return \Illuminate\Http\RedirectResponse Redirige a la vista correspondiente con mensaje flash.
      */
     public function destroyAddress($id){
         try {
@@ -190,16 +214,16 @@ class AddressesController extends Controller{
     }
 
     /**
-     * Deletes a specific address belonging to the authenticated user.
+     * Elimina una direccion especifica que pertenece al usuario autenticado.
      *
-     * Finds and deletes the address with the provided ID that belongs to the authenticated user.
-     * Upon successful deletion, it clears relevant caches to reflect the change. Redirects to the
-     * addresses index route with a success flash message indicating the address has been deleted.
-     * If an error occurs during the deletion process, or if the address does not belong to the authenticated
-     * user, redirects back with an error flash message.
+     * Encuentra y elimina la direccion con el ID proporcionado que pertenece al usuario autenticado.
+     * Tras la eliminacion exitosa, se borran las caches relevantes para reflejar el cambio. Redirige a la
+     * ruta de indice de direcciones con un mensaje flash de exito indicando que la direccion ha sido eliminada.
+     * Si ocurre algun error durante el proceso de eliminacion, o si la direccion no pertenece al usuario autenticado,
+     * redirige de nuevo con un mensaje flash de error.
      *
-     * @param int|string $id The ID of the address to be deleted.
-     * @return \Illuminate\Http\RedirectResponse Redirects to the appropriate view with flash message.
+     * @param int|string $id El ID de la direccion que se va a eliminar.
+     * @return \Illuminate\Http\RedirectResponse Redirige a la vista correspondiente con mensaje flash.
      */
     public function destroyMeAddress($id){
         try {

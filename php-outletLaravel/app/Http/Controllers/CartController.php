@@ -11,16 +11,24 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
-
+/**
+ * Class CartController
+ *
+ * La clase CategoriesController se encarga de todas las interacciones entre el usuario y su carrito de compras,
+ * asegurando que las operaciones de compra se realicen de manera correcta y eficiente.
+ *
+ * @package App\Http\Controllers
+ * @author Joselyn Carolina Obando Fernandez <cariharvey@hotmail.com>
+ */
 class CartController extends Controller{
     /**
-     * Displays the shopping cart.
+     * Muestra el carrito de compras actual.
      *
-     * Retrieves the current shopping cart from the session. If there is no cart in the session,
-     * it initializes an empty array as the cart. Returns the cart view with the cart data to display
-     * the items currently in the shopping cart.
+     * Recupera el carrito de compras actual de la sesion. Si no hay ningun carrito en la sesion,
+     * inicializa un array vacio como el carrito. Devuelve la vista del carrito con los datos del
+     * carrito para mostrar los elementos actualmente en el carrito de compras.
      *
-     * @return \Illuminate\View\View Returns a view displaying the shopping cart.
+     * @return \Illuminate\View\View Devuelve una vista que muestra el carrito de compras.
      */
     public function showCart(){
         $cart = Session::get('cart', []);
@@ -38,6 +46,15 @@ class CartController extends Controller{
         return view('cart.cart')->with('cartItems', $cartItems)->with('totalPrice', $totalPrice);
     }
 
+    /**
+     * Muestra la pagina de pago.
+     *
+     * Obtiene el usuario actual y la direccion de envio del usuario desde la base de datos.
+     * Calcula el precio total, el ahorro y el impuesto sobre el precio total de los productos en el carrito.
+     * Devuelve la vista de pago con los datos calculados y la direccion de envio.
+     *
+     * @return \Illuminate\View\View Devuelve una vista que muestra la pagina de pago.
+     */
     public function payment(){
         $user = User::find(Auth::id());
         $address = $user->addresses()->orderBy('id', 'desc')->first();
@@ -62,16 +79,16 @@ class CartController extends Controller{
     }
 
     /**
-     * Updates the quantity of a specific product in the shopping cart.
+     * Actualiza la cantidad de un producto especifico en el carrito de compras.
      *
-     * Validates the requested stock quantity against the available stock of the product.
-     * If the validation passes, it updates the quantity of the specified product in the
-     * shopping cart stored in the session. It also updates the total number of items in
-     * the cart. Redirects back to the previous page upon successful update or in case of
-     * an error with an appropriate flash message.
+     * Valida la cantidad solicitada en relacion con el stock disponible del producto.
+     * Si la validacion es exitosa, actualiza la cantidad del producto especificado en el
+     * carrito de compras almacenado en la sesion. También actualiza el numero total de
+     * elementos en el carrito. Redirecciona a la pagina anterior tras una actualizacion
+     * exitosa o en caso de un error con un mensaje flash apropiado.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse Redirects back with a success or error message.
+     * @param \Illuminate\Http\Request $request La solicitud HTTP que contiene los datos del formulario de actualizacion.
+     * @return \Illuminate\Http\RedirectResponse Redirecciona a la pagina anterior con un mensaje de exito o error.
      */
     public function updateCartLine(Request $request){
         try {
@@ -102,16 +119,16 @@ class CartController extends Controller{
     }
 
     /**
-     * Removes a specific product line from the shopping cart.
+     * Elimina una linea de producto especifica del carrito de compras.
      *
-     * Iterates through the cart items stored in the session to find the product line
-     * matching the key provided in the request. Upon finding the matching item, it deducts
-     * the quantity of that item from the total items count and removes the item from the cart.
-     * Updates the cart and total items in the session. Redirects back to the previous page
-     * upon successful removal or in case of an error with an appropriate flash message.
+     * Itera a traves de los elementos del carrito almacenados en la sesion para encontrar la linea de producto
+     * que coincida con la clave proporcionada en la solicitud. Al encontrar el elemento coincidente, deduce la
+     * cantidad de ese elemento del recuento total de elementos y elimina el elemento del carrito. Actualiza el
+     * carrito y el recuento total de elementos en la sesion. Redirecciona a la pagina anterior tras la eliminacion
+     * exitosa o en caso de un error con un mensaje flash apropiado.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse Redirects back with a success or error message.
+     * @param \Illuminate\Http\Request $request La solicitud HTTP que contiene la clave de la linea de producto a eliminar.
+     * @return \Illuminate\Http\RedirectResponse Redirecciona a la pagina anterior con un mensaje de exito o error.
      */
     public function destroyCartLine(Request $request){
         try {
@@ -135,6 +152,12 @@ class CartController extends Controller{
         }
     }
 
+    /**
+     * Obtiene un producto de la cache si esta disponible; de lo contrario, lo recupera de la base de datos.
+     *
+     * @param int $id El ID del producto que se va a obtener.
+     * @return \App\Models\Product|null El producto recuperado de la cache o de la base de datos.
+     */
     private function getProduct($id){
         return Cache::has($id) ? Cache::get($id) : Product::find($id);
     }

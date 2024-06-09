@@ -7,12 +7,20 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class UsersController
+ *
+ *Controlador que maneja las acciones relacionadas con los usuarios autenticados.
+ *
+ * @package App\Http\Controllers
+ * @author Joselyn Carolina Obando Fernandez <cariharvey@hotmail.com>
+ */
 class UsersController extends Controller
 {
     /**
-     * Displays the details of the authenticated user.
+     * Muestra los detalles del usuario autenticado.
      *
-     * @return \Illuminate\View\View The view displaying the user details.
+     * @return \Illuminate\View\View La vista que muestra los detalles del usuario.
      */
 
     public function userDetails()
@@ -22,10 +30,10 @@ class UsersController extends Controller
     }
 
     /**
-     * Updates the details of the authenticated user.
+     * Actualiza los detalles del usuario autenticado.
      *
-     * @param \Illuminate\Http\Request $request The request containing the updated user details.
-     * @return \Illuminate\Http\RedirectResponse Redirects back to the user details page with a flash message.
+     * @param \Illuminate\Http\Request $request La solicitud que contiene los detalles actualizados del usuario.
+     * @return \Illuminate\Http\RedirectResponse Redirige de nuevo a la página de detalles del usuario con un mensaje flash.
      */
 
     public function updateUser(Request $request)

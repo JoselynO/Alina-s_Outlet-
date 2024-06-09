@@ -13,7 +13,22 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
+/**
+ * Class OrdersController
+ *
+ *Controlador que gestiona las operaciones relacionadas con las ordenes de compra.
+ *
+ * @package App\Http\Controllers
+ * @author Joselyn Carolina Obando Fernandez <cariharvey@hotmail.com>
+ */
 class OrdersController extends Controller{
+
+    /**
+     * Crea una nueva orden de compra.
+     *
+     * @param \Illuminate\Http\Request $request La solicitud HTTP que contiene los detalles de la orden.
+     * @return \Illuminate\Http\RedirectResponse Redirige de vuelta a la pagina de la orden con un mensaje flash.
+     */
     public function createOrder(Request $request){
         $request->validate([
             'name' => 'min:3|max:50|required',
@@ -63,28 +78,57 @@ class OrdersController extends Controller{
         return $this->generateInvoice($order, $order->orderLines, $adress);
     }
 
+    /**
+     * Genera una factura en formato PDF para una orden dada.
+     *
+     * @param \App\Models\Order $order La orden para la cual se generara la factura.
+     * @param \Illuminate\Database\Eloquent\Collection $orderLines Las lineas de la orden.
+     * @param \App\Models\Address $address La direccion de entrega de la orden.
+     * @return \Illuminate\Http\Response La respuesta HTTP que contiene la factura en formato PDF para descargar.
+     */
     public function generateInvoice($order, $orderLines, $address){
         $user = User::find(Auth::id());
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdf.invoice', ['user' => $user, 'order' => $order, 'address' => $address, 'orderLines' => $orderLines]);
         return $pdf->download(Carbon::now() . $order->id . '.pdf');
     }
-
+    /**
+     * Obtiene todas las ordenes.
+     *
+     * @return \Illuminate\View\View La vista que muestra todas las ordenes.
+     */
     public function getOrders(){
         $orders = Order::all();
         return view('orders.index')->with('orders', $orders);
     }
 
+    /**
+     * Obtiene todas las ordenes del usuario autenticado.
+     *
+     * @return \Illuminate\View\View La vista que muestra todas las ordenes del usuario autenticado.
+     */
     public function getMeOrders(){
         $orders = Order::where('user_id', Auth::id())->get();
         return view('orders.index')->with('orders', $orders);
     }
 
+    /**
+     * Obtiene una orden por su ID.
+     *
+     * @param int $id El ID de la orden.
+     * @return \Illuminate\View\View La vista que muestra los detalles de la orden.
+     */
     public function getOrderById($id){
         $order = Order::find($id);
         return view('orders.show')->with('order', $order);
     }
 
+    /**
+     * Obtiene una orden del usuario autenticado por su ID.
+     *
+     * @param int $id El ID de la orden.
+     * @return \Illuminate\View\View La vista que muestra los detalles de la orden del usuario autenticado.
+     */
     public function getMeOrderById($id){
         $order = Order::find($id)
             ->where('user_id', Auth::id())
@@ -92,6 +136,12 @@ class OrdersController extends Controller{
         return view('orders.show')->with('order', $order);
     }
 
+    /**
+     * Muestra el formulario para realizar una nueva orden.
+     *
+     * @param \Illuminate\Http\Request $request La solicitud HTTP.
+     * @return \Illuminate\View\View La vista que muestra el formulario para realizar una nueva orden.
+     */
     public function storeOrder(Request $request){
         $user = User::find(Auth::id());
         $addresses = $user->addresses();
@@ -99,6 +149,12 @@ class OrdersController extends Controller{
         return view('orders.store')->with('cart', $cart)->with('address', $addresses);
     }
 
+    /**
+     * Cancela y devuelve una orden por su ID, devolviendo el stock de los productos asociados.
+     *
+     * @param int $id El ID de la orden que se desea cancelar y devolver.
+     * @return \Illuminate\Http\RedirectResponse Redirige a la página de todas las ordenes.
+     */
     public function returnOrderById($id){
         try {
             $order = Order::find($id);
@@ -115,6 +171,12 @@ class OrdersController extends Controller{
         }
     }
 
+    /**
+     * Cancela y devuelve una orden del usuario autenticado por su ID, devolviendo el stock de los productos asociados.
+     *
+     * @param int $id El ID de la orden del usuario autenticado que se desea cancelar y devolver.
+     * @return \Illuminate\Http\RedirectResponse Redirige a la pagina de todas las ordenes.
+     */
     public function returnMeOrderById($id){
         try {
             $order = Order::find($id)
@@ -133,6 +195,12 @@ class OrdersController extends Controller{
         }
     }
 
+    /**
+     * Elimina una orden por su ID.
+     *
+     * @param int $id El ID de la orden que se desea eliminar.
+     * @return \Illuminate\Http\RedirectResponse Redirige a la pagina de todas las ordenes.
+     */
     public function destroyOrderById($id){
         try {
             $order = Order::find($id);
@@ -145,6 +213,12 @@ class OrdersController extends Controller{
         }
     }
 
+    /**
+     * Elimina una orden del usuario autenticado por su ID.
+     *
+     * @param int $id El ID de la orden del usuario autenticado que se desea eliminar.
+     * @return \Illuminate\Http\RedirectResponse Redirige a la página de todas las órdenes.
+     */
     public function destroyMeOrderById($id){
         try {
             $order = Order::find($id)

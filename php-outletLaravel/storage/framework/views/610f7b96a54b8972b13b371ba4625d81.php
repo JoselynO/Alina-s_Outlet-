@@ -38,6 +38,11 @@
                                            min="1.0" step="0.01"  value="0">
                                 </div>
                                 <div class="form-group">
+                                    <label for="price_before">Price before:</label>
+                                    <input class="form-control" id="price_before" name="price_before" type="number"
+                                           min="1.0" step="0.01"  value="0">
+                                </div>
+                                <div class="form-group">
                                     <label for="stock">Stock:</label>
                                     <input class="form-control" id="stock" name="stock" type="number" required
                                            min="1" value="0">

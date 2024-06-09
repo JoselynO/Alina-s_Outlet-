@@ -26,14 +26,15 @@
                                 <?php if($category->id!=1): ?>
                                 <td><img src="<?php echo e(asset('storage/' . $category->image)); ?>" style="width: 45px" onerror="this.onerror=null; this.src='<?php echo e($category->image); ?>'"></td>
                                     <td><?php echo e($category->name); ?></td>
-                                <td><button><a class="btn btn-primary" href="<?php echo e(route('categories.edit', $category->id)); ?>">Edit</a></button>
-                                    <button><a class="btn btn-secondary" href="<?php echo e(route('categories.editImage', $category->id)); ?>">EditImage</a></button>
+                                <td><div class="btn-group" role="group" ><a class="btn btn-primary" href="<?php echo e(route('categories.edit', $category->id)); ?>">Edit</a>
+                                    <a class="btn btn-secondary" href="<?php echo e(route('categories.editImage', $category->id)); ?>">EditImage</a>
                                     <form action="<?php echo e(route('categories.destroy', $category->id)); ?>" method="POST">
                                         <?php echo csrf_field(); ?>
                                         <?php echo method_field('DELETE'); ?>
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                     </form>
                                     <?php endif; ?>
+                                    </div>
                                 </td>
 
                             </tr>

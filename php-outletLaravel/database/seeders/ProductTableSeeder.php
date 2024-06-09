@@ -209,6 +209,127 @@ class ProductTableSeeder extends Seeder
                     'image' => 'https://www.ernestjones.co.uk/productimages/processed/V-2452707_0_800.jpg?pristine=true',
                     'category_id' => 4
                 ],
+                [
+                    'id' => Str::uuid(),
+                    'sex' => 'woman',
+                    'name' => 'Platinum 1ct Diamond Cushion Shape Halo Bridal Set',
+                    'description' => 'Nestled at the core of this cushion-shaped cluster ring lies a stunning princess-cut diamond. Enhanced by diamond-set shoulders, this exquisite creation offers an outstanding way to show your love. The total diamond weight of this ring is 1ct. - Item:  8817074',
+                    'price' => 2000,
+                    'price_before' => 3500,
+                    'stock' => 2,
+                    'image' => 'https://www.ernestjones.co.uk/productimages/processed/V-8817066_0_800.jpg?pristine=true',
+                    'category_id' => 5
+                ],
+                [
+                'id' => Str::uuid(),
+                'sex' => 'woman',
+                'name' => 'Gucci 18ct Yellow Gold Stud Earring',
+                'description' => 'Classically Gucci. Add a contemporary edge to any outfit, with these gorgeous GG, logo earrings from Gucci, crafted in 18ct yellow gold. - Model Number: YBD094074002',
+                'price' => 299,
+                'price_before' => 595,
+                'stock' => 3,
+                'image' => 'https://www.ernestjones.co.uk/productimages/processed/V-4845595_0_800.jpg?pristine=true',
+                'category_id' => 5
+                ],
+                [
+                    'id' => Str::uuid(),
+                    'sex' => 'woman',
+                    'name' => '18ct Yellow Gold 1ct Diamond Channel Triple Row Ring',
+                    'description' => 'This sumptuously crafted 18ct Yellow Gold eternity band is the optimal way to express love to your soulmate.  The total diamond weight for this eternity band is 1ct. - Item:  2474891',
+                    'price' => 999,
+                    'price_before' => 3000,
+                    'stock' => 5,
+                    'image' => 'https://www.ernestjones.co.uk/productimages/processed/V-2474778_0_800.jpg?pristine=true',
+                    'category_id' => 5
+                ],
+                [
+                    'id' => Str::uuid(),
+                    'sex' => 'woman',
+                    'name' => 'Teri shoulder bag in signature canvas',
+                    'description' => 'Exclusive waterproof canvas and soft leather, Two credit card slots, Interior multifunction pocket, Zip top closure and fabric lining, Detachable handle with a length of 21 cm, Detachable strap with a length of 52.7 cm to carry the bag on the shoulder or crossbody. - Style No. CA548',
+                    'price' => 229,
+                    'price_before' => 450,
+                    'stock' => 5,
+                    'image' => 'https://coach.scene7.com/is/image/Coach/ca548_imaa8_a0?$desktopProduct$',
+                    'category_id' => 2
+                ],
+                [
+                    'id' => Str::uuid(),
+                    'sex' => 'woman',
+                    'name' => 'Signature Canvas Mini Rowan Crossbody Bag',
+                    'description' => '- Style No. CS183',
+                    'price' => 200,
+                    'price_before' => 425,
+                    'stock' => 5,
+                    'image' => 'https://coach.scene7.com/is/image/Coach/cs183_imaa8_a0?$desktopProduct$',
+                    'category_id' => 2
+                ],
+                [
+                    'id' => Str::uuid(),
+                    'sex' => 'woman',
+                    'name' => 'Eliza Top Handle Bag',
+                    'description' => '- Style No. CP006',
+                    'price' => 299,
+                    'price_before' => 595,
+                    'stock' => 3,
+                    'image' => 'https://coach.scene7.com/is/image/Coach/cp006_imblk_a0?$desktopProduct$',
+                    'category_id' => 2
+                ],
+                [
+                    'id' => Str::uuid(),
+                    'sex' => 'woman',
+                    'name' => 'Medium Parker Logo Shoulder Bag',
+                    'description' => '• N.º de producto # 30F2G7PC6B',
+                    'price' => 199,
+                    'price_before' => 350,
+                    'stock' => 3,
+                    'image' => 'https://coach.scene7.com/is/image/Coach/cj617_svvs5_a0?$desktopProduct$',
+                    'category_id' => 2
+                ],
+                [
+                    'id' => Str::uuid(),
+                    'sex' => 'unisex',
+                    'name' => 'VERSACE',
+                    'description' => '- UPC: 8053672947410',
+                    'price' => 149,
+                    'price_before' => 263,
+                    'stock' => 5,
+                    'image' => 'https://assets2.sunglasshut.com/cdn-record-files-pi/ecc1aa39-90f6-413a-8138-a8e60146657a/675e816c-7d09-4f93-ba6d-aea701374467/0VE4361__401_87__P21__shad__qt.png',
+                    'category_id' => 3
+                ],
+                [
+                    'id' => Str::uuid(),
+                    'sex' => 'unisex',
+                    'name' => 'PRADA',
+                    'description' => '- UPC: 8056597967495',
+                    'price' => 229,
+                    'price_before' => 430,
+                    'stock' => 10,
+                    'image' => 'https://assets2.sunglasshut.com/cdn-record-files-pi/7b62191c-d2ff-4270-be8f-b00b0119fb0b/1e9f7aeb-0d48-4759-b976-b00c0010d7e3/0PR_A51S__1AB5Z1__P21__shad__qt.png',
+                    'category_id' => 3
+                ],
+                [
+                    'id' => Str::uuid(),
+                    'sex' => 'unisex',
+                    'name' => 'MIU MIU',
+                    'description' => '- UPC: 8056597967495',
+                    'price' => 199,
+                    'price_before' => 350,
+                    'stock' => 2,
+                    'image' => 'https://assets2.sunglasshut.com/cdn-record-files-pi/1cadfca8-a5ca-41d2-b5ab-b018009bb979/bbeba6f9-54da-43c3-bb2e-b01800fd1cd7/0MU_04ZS__VAU50D__P21__shad__qt.png',
+                    'category_id' => 3
+                ],
+                [
+                    'id' => Str::uuid(),
+                    'sex' => 'unisex',
+                    'name' => 'GUCCI',
+                    'description' => '- UPC: 889652394190',
+                    'price' => 229,
+                    'price_before' => 390,
+                    'stock' => 5,
+                    'image' => 'https://assets2.sunglasshut.com/cdn-record-files-pi/3430e4fd-1660-4a2d-8cfd-aed601557113/fd631dac-5afd-48d6-9cac-aefa000fc800/0GC001968__2300L1_030A.png',
+                    'category_id' => 3
+                ],
             ]
         );
 

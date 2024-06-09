@@ -26,14 +26,15 @@
                                 @if($category->id!=1)
                                 <td><img src="{{ asset('storage/' . $category->image) }}" style="width: 45px" onerror="this.onerror=null; this.src='{{$category->image}}'"></td>
                                     <td>{{ $category->name }}</td>
-                                <td><button><a class="btn btn-primary" href="{{ route('categories.edit', $category->id) }}">Edit</a></button>
-                                    <button><a class="btn btn-secondary" href="{{ route('categories.editImage', $category->id) }}">EditImage</a></button>
+                                <td><div class="btn-group" role="group" ><a class="btn btn-primary" href="{{ route('categories.edit', $category->id) }}">Edit</a>
+                                    <a class="btn btn-secondary" href="{{ route('categories.editImage', $category->id) }}">EditImage</a>
                                     <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                     </form>
                                     @endif
+                                    </div>
                                 </td>
 
                             </tr>

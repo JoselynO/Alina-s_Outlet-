@@ -36,13 +36,15 @@
                                 <td>€<?php echo e($product->price); ?></td>
                                 <td><?php if($product->price_before && $product->price_before > 0): ?> €<?php echo e($product->price_before); ?> <?php else: ?> <p style="text-align: center">-</p> <?php endif; ?></td>
                                 <td><?php echo e($product->stock); ?></td>
-                                <td><button><a class="btn btn-primary" href="<?php echo e(route('products.edit', $product->id)); ?>">Edit</a></button>
-                                    <button><a class="btn btn-secondary" href="<?php echo e(route('products.editImage', $product->id)); ?>">EditImage</a></button>
+                                <td><div class="btn-group" role="group" >
+                                        <a class="btn btn-primary" href="<?php echo e(route('products.edit', $product->id)); ?>">Edit</a>
+                                    <a class="btn btn-secondary" href="<?php echo e(route('products.editImage', $product->id)); ?>">EditImage</a>
                                     <form action="<?php echo e(route('products.destroy', $product->id)); ?>" method="POST">
                                         <?php echo csrf_field(); ?>
                                         <?php echo method_field('DELETE'); ?>
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                     </form>
+                                    </div>
                                 </td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

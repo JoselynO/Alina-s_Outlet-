@@ -36,13 +36,15 @@
                                 <td>€{{ $product->price }}</td>
                                 <td>@if($product->price_before && $product->price_before > 0) €{{ $product->price_before }} @else <p style="text-align: center">-</p> @endif</td>
                                 <td>{{ $product->stock }}</td>
-                                <td><button><a class="btn btn-primary" href="{{ route('products.edit', $product->id) }}">Edit</a></button>
-                                    <button><a class="btn btn-secondary" href="{{ route('products.editImage', $product->id) }}">EditImage</a></button>
+                                <td><div class="btn-group" role="group" >
+                                        <a class="btn btn-primary" href="{{ route('products.edit', $product->id) }}">Edit</a>
+                                    <a class="btn btn-secondary" href="{{ route('products.editImage', $product->id) }}">EditImage</a>
                                     <form action="{{ route('products.destroy', $product->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                     </form>
+                                    </div>
                                 </td>
                         </tr>
                     @endforeach

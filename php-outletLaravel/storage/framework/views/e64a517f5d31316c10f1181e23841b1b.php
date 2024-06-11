@@ -90,7 +90,7 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" placeholder="+34" maxlength="9"/>
+unset($__errorArgs, $__bag); ?>" placeholder="+34" maxlength="9" pattern="[6789][0-9]{8}" title="The number must have 9 digits and begin with 6, 7, 8, or 9." required/>
                                             <label class="form-label" for="phone_number">Phone Number</label>
                                             <?php $__errorArgs = ['phone_number'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');

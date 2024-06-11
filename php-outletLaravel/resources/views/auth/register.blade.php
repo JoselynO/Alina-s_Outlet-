@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <input type="text" id="phone_number" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" placeholder="+34" maxlength="9"/>
+                                            <input type="text" id="phone_number" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" placeholder="+34" maxlength="9" pattern="[6789][0-9]{8}" title="The number must have 9 digits and begin with 6, 7, 8, or 9." required/>
                                             <label class="form-label" for="phone_number">Phone Number</label>
                                             @error('phone_number')
                                             <span class="invalid-feedback" role="alert">
